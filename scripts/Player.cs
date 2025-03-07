@@ -4,7 +4,7 @@ using System;
 public partial class Player : CharacterBody2D
 {
     public const float SPEED = 100f;
-    public const float JUMP_FORCE = -250f; // 重命名更贴切
+    public const float JUMP_FORCE = -300f; // 重命名更贴切
     public int direction = 1;
     private AnimatedSprite2D animatedSprite2D;
 
@@ -24,6 +24,7 @@ public partial class Player : CharacterBody2D
         // 自动重力应用
         if (!IsOnFloor())
         {
+            // 为什么这里需要乘以 delta，因为 gravity 的加速度，要乘以时间才是速度
             velocity.Y += gravity * (float)delta;
         }
 
