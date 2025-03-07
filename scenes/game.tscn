@@ -15,7 +15,7 @@ metadata/_edit_horizontal_guides_ = [223.0, 224.0]
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_uwrxv")]
 y_sort_enabled = true
-position = Vector2(-266, 133)
+position = Vector2(-248, 140)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
@@ -52,7 +52,7 @@ positionArr = [NodePath("pos1"), NodePath("pos2")]
 position = Vector2(0, -72)
 
 [node name="Platfrom2" parent="Platfrom" node_paths=PackedStringArray("positionArr") instance=ExtResource("3_lnu2h")]
-position = Vector2(-239, 125)
+position = Vector2(-248, 125)
 script = ExtResource("4_lbhrr")
 positionArr = []
 

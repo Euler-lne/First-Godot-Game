@@ -26,7 +26,7 @@ public partial class DeadZoom : Area2D
 		string currentScenePath = GetTree().CurrentScene.SceneFilePath;
 		GetTree().ChangeSceneToFile(currentScenePath);
 
-		GameManager.InitGameData();
+		GameManager.Instance.InitGameData();
 
 		// 2. 场景切换完成后自动会清理旧节点
 		// 不再需要手动 QueueFree()

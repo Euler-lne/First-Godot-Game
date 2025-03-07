@@ -19,8 +19,8 @@ public partial class Coin : Area2D
 	{
 		if (body.IsInGroup("Player"))
 		{
-			GameManager.coinsAmount++;
-			GD.Print(GameManager.coinsAmount);
+			GameManager.Instance.coinsAmount++;
+			GD.Print(GameManager.Instance.coinsAmount);
 			QueueFree();
 		}
 	}
