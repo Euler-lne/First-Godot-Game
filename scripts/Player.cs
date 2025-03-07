@@ -3,37 +3,56 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-    public const float SPEED = 20f;
-    public const float JUMP_SPEED = -100f;
+    public const float SPEED = 100f;
+    public const float JUMP_FORCE = -250f; // 重命名更贴切
     public int direction = 1;
     private AnimatedSprite2D animatedSprite2D;
+
+    // 获取项目设置中的重力值
+    private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+
 
     public override void _Ready()
     {
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
-        var position = Position;
-        // var dir = Input.GetAxis("move_left", "move_right");
-        // GD.Print(dir);
-        if (Input.IsActionPressed("move_left"))
+        Vector2 velocity = Velocity;
+
+        // 自动重力应用
+        if (!IsOnFloor())
         {
-            direction = 1;
-            position.X += SPEED * (float)delta * direction;
-            animatedSprite2D.FlipH = true;
+            velocity.Y += gravity * (float)delta;
         }
-        else if (Input.IsActionPressed("move_right"))
+
+        // 水平移动
+        velocity.X = Input.GetAxis("move_left", "move_right") * SPEED;
+
+        // 跳跃修复：仅响应按键按下瞬间
+        if (Input.IsActionJustPressed("jump") && IsOnFloor())
         {
-            direction = 01;
-            position.X += SPEED * (float)delta * direction;
-            animatedSprite2D.FlipH = false;
+            velocity.Y = JUMP_FORCE;
         }
-        else if (Input.IsActionPressed("jump"))
+        if (IsOnFloor())
+        {// 动画方向控制
+            if (velocity.X != 0)
+            {
+                animatedSprite2D.FlipH = velocity.X < 0;
+                animatedSprite2D.Play("run");
+            }
+            else
+            {
+                animatedSprite2D.Play("idle");
+            }
+        }
+        else
         {
-            position.Y += JUMP_SPEED * (float)delta;
+            animatedSprite2D.Play("jump");
         }
-        Position = position;
+
+        Velocity = velocity;
+        MoveAndSlide();
     }
 }
