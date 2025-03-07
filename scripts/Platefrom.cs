@@ -7,7 +7,7 @@ using System;
 public partial class Platefrom : AnimatableBody2D
 {
 	[Export] Node2D[] positionArr;
-	public const float SPEED = 75f;
+	public const float SPEED = 65f;
 	private int curPosIndex = -1;
 	private int nextPosIndex;
 	private Vector2 offsetPosition = Vector2.Zero;
